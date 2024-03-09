@@ -20,12 +20,20 @@ namespace BowlingCounter
 
         public void PlayATurn(int firstThrow, int secondThrow)
         {
-            var previousThrow = _throws.Last();
+            var previousThrow = _throws.LastOrDefault();
             var newThrow = new Throw(firstThrow, secondThrow);
 
             _throws.Add(newThrow);
 
-            Score.AddThrowToScore(newThrow, previousThrow);
+            if(previousThrow is null)
+                Score.AddThrowToScore(newThrow);
+            else
+                Score.AddThrowToScore(newThrow, previousThrow);
+        }
+
+        public List<Throw> GetAllThrows()
+        {
+            return _throws;
         }
     }
 }

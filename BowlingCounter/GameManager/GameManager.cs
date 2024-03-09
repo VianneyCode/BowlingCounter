@@ -20,32 +20,33 @@ namespace BowlingCounter.GameManager
         {
             CreatePlayers();
 
-            for (int i = 0; i < NumberOfTurns; i++)
+            for (int i = 1; i < NumberOfTurns+1; i++)
             {
                 foreach (var player in _players)
                 {
-                    RunATurn(player);
+                    RunATurn(player, i);
                 }
             }
+
+            _playersRecord.AddRange(_players);
+            _players.Clear();
         }
 
-        private void RunATurn(Player player)
+        public void DisplayHighScores()
         {
-            var turnThrow = _interfaceManager.GetPlayerTurnThrow(player.PlayerName);
+            _interfaceManager.DisplayHighScores(_playersRecord
+                .OrderBy(x => x.Score.GetScore())
+                .Take(5)
+            );
+        }
+
+        private void RunATurn(Player player, int turnNumber)
+        {
+            var turnThrow = _interfaceManager.GetPlayerTurnThrow(player.PlayerName, turnNumber);
 
             player.PlayATurn(turnThrow.FirstThrow, turnThrow.SecondThrow);
 
-            Console.WriteLine("Total Score: " + totalScore);
-
-            // Print the throws in a table
-            Console.WriteLine("Throws:");
-            for (int j = 0; j <= i; j++)
-            {
-                Console.Write("| " + firstThrows[playerNumber][j] + " " + secondThrows[playerNumber][j] + " ");
-            }
-
-            Console.WriteLine("|");
-
+            _interfaceManager.EndTurn(player);
         }
 
         private void CreatePlayers()
@@ -53,10 +54,9 @@ namespace BowlingCounter.GameManager
             var numberOfPlayers = _interfaceManager.GetPlayerNumber();
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                _players.Add(new Player("Player" + " " + i));
+                var playerName = _interfaceManager.GetPlayerName();
+                _players.Add(new Player(playerName));
             }
-
-
         }
     }
 }

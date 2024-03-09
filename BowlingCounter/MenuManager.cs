@@ -1,4 +1,5 @@
-﻿using BowlingCounter.GameManager;
+﻿using System.Net.Mime;
+using BowlingCounter.GameManager;
 using BowlingCounter.Interface;
 
 namespace BowlingCounter
@@ -16,16 +17,25 @@ namespace BowlingCounter
 
         public void RunGame()
         {
-            _interfaceManager.DisplayMenu();
-            var choice = _interfaceManager.GetPlayerResponse();
-
-            if (choice == "1")
+            while (true)
             {
-                _gameManager.PlayAGame();
-            }
-            if (choice == "2")
-            {
+                _interfaceManager.DisplayMenu();
+                var choice = _interfaceManager.GetPlayerResponse();
 
+                if (choice == "1")
+                {
+                    _gameManager.PlayAGame();
+                }
+
+                if (choice == "2")
+                {
+                    _gameManager.DisplayHighScores();
+                }
+
+                if (choice == "3")
+                {
+                    Environment.Exit(0);
+                }
             }
         }
     }

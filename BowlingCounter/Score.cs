@@ -21,6 +21,11 @@
             }
         }
 
+        public void AddThrowToScore(Throw newThrow)
+        {
+            _scoreValue += newThrow.FirstThrow + newThrow.SecondThrow;
+        }
+
         public int GetScore()
         {
             return _scoreValue;
