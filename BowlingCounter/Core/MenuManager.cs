@@ -17,7 +17,7 @@ public class MenuManager
     public void DisplayTitle(string title)
     {
         if (string.IsNullOrWhiteSpace(title))
-        {○○
+        {
             throw new ArgumentNullException("The title to display cannot be empty");
         }
         
