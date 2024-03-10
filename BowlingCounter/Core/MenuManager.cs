@@ -1,4 +1,6 @@
-﻿namespace BowlingCounter;
+﻿using BowlingCounter.Utils;
+
+namespace BowlingCounter;
 
 public class MenuManager
 {
@@ -34,18 +36,25 @@ public class MenuManager
         }
     }
 
-    public int GetUserSelection()
+    public UserInput GetUserSelection()
     {
+        var userInput = new UserInput();
         Console.WriteLine("Enter your choice: ");
-        var userInput = Console.ReadLine();
-        var isUserInputValidInteger = int.TryParse(userInput, out var userChoice);
-        
+        var userChoiceString = Console.ReadLine();
+        var isUserInputValidInteger = int.TryParse(userChoiceString, out var userChoice);
+
         if (!isUserInputValidInteger)
-            throw new Exception("Your choice is not valid");
+        {
+            userInput.UserChoice = null;
+            userInput.Error = "Your choice is not valid";
+        }
 
         if (userChoice < 1 && userChoice > _menuOptions.Count())
-            throw new Exception("Your choice is not in the menu option's list");
+        {
+            userInput.UserChoice = null;
+            userInput.Error = "Your choice is not in option's list";
+        }
 
-        return userChoice;
+        return userInput;
     }
 }
