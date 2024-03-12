@@ -4,12 +4,12 @@ public class FrameBuilder
 {
     private Frame _frame { get; set; }
 
-    public FrameBuilder()
+    public FrameBuilder(Frame? frame = null)
     {
-        _frame = new Frame();
+        _frame = frame ?? new Frame();
     }
 
-    public void SetFrameId(int frameId)
+    public FrameBuilder SetFrameId(int frameId)
     {
         ArgumentNullException.ThrowIfNull(frameId);
         if (frameId <= 0)
@@ -18,18 +18,32 @@ public class FrameBuilder
         }
 
         _frame.Id = frameId;
+
+        return this;
     }
 
-    public void SetFirstThrow(Throw.Throw @throw)
+    public FrameBuilder SetFirstThrow(Throw.Throw @throw)
     {
         ArgumentNullException.ThrowIfNull(@throw);
         _frame.FirstThrow = @throw;
+        
+        return this;
     }
 
-    public void SetSecondThrow(Throw.Throw @throw)
+    public FrameBuilder SetSecondThrow(Throw.Throw @throw)
     {
         ArgumentNullException.ThrowIfNull(@throw);
         _frame.SecondThrow = @throw;
+
+        return this;
+    }
+
+    public FrameBuilder SetThirdThrow(Throw.Throw @throw)
+    {
+        ArgumentNullException.ThrowIfNull(@throw);
+        _frame.ThirdThrow = @throw;
+
+        return this;
     }
 
     public Frame GetFrame() => _frame;

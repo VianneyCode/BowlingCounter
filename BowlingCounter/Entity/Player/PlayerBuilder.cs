@@ -4,21 +4,23 @@ public class PlayerBuilder
 {
     private Player _player { get; set; }
 
-    public PlayerBuilder()
+    public PlayerBuilder(Player? player = null)
     {
-        _player = new Player();
+        _player = player ?? new Player();
     }
 
-    public void SetPlayerName(string name)
+    public PlayerBuilder SetPlayerName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
             throw new ArgumentNullException("The name of the player cannot be empty");
         }
         _player.Name = name;
+        
+        return this;
     }
 
-    public void AddFrame(Frame.Frame frame)
+    public PlayerBuilder AddFrame(Frame.Frame frame)
     {
         ArgumentNullException.ThrowIfNull(frame);
 
@@ -28,6 +30,7 @@ public class PlayerBuilder
         }
         
         _player.Frames.Add(frame);
+        return this;
     }
 
     public Player GetPlayer() => _player;

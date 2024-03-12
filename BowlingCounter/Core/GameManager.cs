@@ -3,11 +3,14 @@
 public class GameManager
 {
     private readonly MenuManager _menuManager;
+    private readonly BowlingCounter _game;
 
-    public GameManager(MenuManager menuManager)
+    public GameManager(MenuManager menuManager, BowlingCounter game)
     {
         ArgumentNullException.ThrowIfNull(menuManager);
+        ArgumentNullException.ThrowIfNull(game);
         _menuManager = menuManager;
+        _game = game;
     }
 
     public void Launch()
@@ -25,12 +28,9 @@ public class GameManager
         {
             case 1:
                 _game.Start();
-                break;
+                break; 
             case 2:
-                _game.DisplayScore();
-                break;
-            case 3:
-                _game.End();
+                _menuManager.End();
                 break;
             default:
                 Console.WriteLine("Invalid choice");

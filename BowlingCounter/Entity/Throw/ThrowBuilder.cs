@@ -9,7 +9,7 @@ public class ThrowBuilder
         _throw = new Throw();
     }
 
-    public void SetNumberOfPinsDown(int pinsDown)
+    public ThrowBuilder SetNumberOfPinsDown(int pinsDown)
     {
         ArgumentNullException.ThrowIfNull(pinsDown);
         if (pinsDown < 0)
@@ -18,5 +18,9 @@ public class ThrowBuilder
         }
 
         _throw.NumberOfPinsDown = pinsDown;
+        return this;
     }
+    
+    public Throw GetThrow() => _throw;
+
 }

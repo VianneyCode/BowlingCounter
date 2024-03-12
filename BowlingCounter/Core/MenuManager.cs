@@ -39,8 +39,10 @@ public class MenuManager
     public UserInput GetUserSelection()
     {
         var userInput = new UserInput();
+        
         Console.WriteLine("Enter your choice: ");
         var userChoiceString = Console.ReadLine();
+        
         var isUserInputValidInteger = int.TryParse(userChoiceString, out var userChoice);
 
         if (!isUserInputValidInteger)
@@ -56,5 +58,10 @@ public class MenuManager
         }
 
         return userInput;
+    }
+
+    public void End()
+    {
+        Console.WriteLine("Goodbye!");
     }
 }
